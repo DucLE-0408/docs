@@ -1,0 +1,44 @@
+---
+title: "Shipper Master Data"
+description: "Manage the customers tendering freight into the network."
+---
+
+Shippers are the customer organizations that request transportation services. Consistent shipper data is critical for
+billing, credit management, and customer visibility portals.
+
+## Customer profile
+
+| Attribute | Required | Description |
+| --- | --- | --- |
+| `legal_name` | Yes | Entity name that appears on contracts and invoices. |
+| `customer_code` | Yes | Unique identifier shared with the CRM and billing platforms. |
+| `billing_address` | Yes | Primary remittance address. |
+| `credit_limit` | Conditional | Required when payment terms are not prepaid. |
+| `account_tier` | Yes | `strategic`, `core`, or `opportunistic`. Drives SLA selections. |
+| `primary_forwarder_id` | No | Links to the [Forwarder](./forwarder) managing shipments. |
+
+### Contacts & roles
+
+Maintain at least one contact per role:
+
+- **Logistics manager** – receives shipment updates and exceptions.
+- **Finance owner** – receives invoices and statement of account.
+- **Executive sponsor** – participates in quarterly business reviews.
+
+## Governance
+
+1. **Sales Operations** owns the creation of new shippers and ensures CRM alignment.
+2. **Credit & Collections** approves credit limits and payment terms before activation.
+3. **Customer Success** validates portal access and SLA coverage.
+
+## Implementation notes
+
+- Import shippers from CRM exports, mapping account hierarchies to parent/child relationships.
+- Configure webhooks to notify downstream systems when account tiers or credit statuses change.
+- Store customer-specific compliance documents in the linked document repository with expiration alerts.
+
+## Related pages
+
+- [Forwarder Master Data](./forwarder)
+- [Trucker Master Data](./trucker)
+- [Master Data Overview](./)

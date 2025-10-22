@@ -1,0 +1,44 @@
+---
+title: "Vessel Master Data"
+description: "Maintain the fleet of vessels deployed across services and voyages."
+---
+
+Vessel records capture the technical characteristics and regulatory identifiers for every ship operating on our network.
+Precise vessel data powers schedule accuracy, compliance, and asset planning.
+
+## Technical specifications
+
+| Attribute | Description |
+| --- | --- |
+| `imo_number` | Unique International Maritime Organization number. Required for every vessel. |
+| `vessel_name` | Registered vessel name. Record historical names in the audit log. |
+| `vessel_type` | Container ship, tanker, feeder, etc. Drives compatibility with services. |
+| `capacity_teu` | Total twenty-foot equivalent units the vessel can carry. |
+| `reefer_slots` | Count of refrigerated container plugs. |
+| `flag_state` | Country where the vessel is registered. |
+| `build_year` | Year the vessel entered service. |
+
+## Operational data points
+
+- **Owner vs. operator:** Track the owning entity separately from the [Carrier](./carrier) operating the service.
+- **Classes & certificates:** Store SOLAS, ISM, and class society certificates with expiration reminders.
+- **Maintenance windows:** Publish dry dock schedules so the [Service](./service) calendar can plan substitute vessels.
+
+## Governance
+
+1. **Fleet Management** maintains vessel specs and ensures certificate documents are current.
+2. **Network Operations** approves vessel assignments to services and validates capacity updates.
+3. **Risk & Compliance** audits flag state and sanction screening every quarter.
+
+## Integration recommendations
+
+- Expose vessel data via the `/master-data/vessels` API with filters for capacity, operator, and effectivity.
+- Notify downstream planning tools using the `vessel.updated` webhook when capacity, name, or operator changes.
+- Mirror vessel attributes into analytics warehouses to support fuel efficiency and utilization reporting.
+
+## Related pages
+
+- [Carrier Master Data](./carrier)
+- [Service Master Data](./service)
+- [Trucker Master Data](./trucker)
+- [Master Data Overview](./)

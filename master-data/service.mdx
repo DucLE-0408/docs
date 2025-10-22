@@ -1,0 +1,43 @@
+---
+title: "Service Master Data"
+description: "Model the scheduled services and lanes offered by each carrier."
+---
+
+Services describe the marketed lanes, sailing schedules, and capacities that carriers sell. They tie together
+carriers, vessels, and ports so planners can book routings with confidence.
+
+## Service structure
+
+| Section | Purpose |
+| --- | --- |
+| Header | Stores the service code, marketing name, and carrier owner. |
+| Schedule | Lists port rotations with standard transit times and cut-offs. |
+| Capacity | Captures TEU/FEU availability or weight limits for air services. |
+| Constraints | Notes on hazardous restrictions, reefer capability, or equipment limitations. |
+
+### Required fields
+
+- `service_code`: Unique identifier shared across planning tools.
+- `carrier_id`: Reference to the owning [Carrier](./carrier).
+- `mode`: `ocean`, `air`, or `truck`.
+- `port_rotation`: Ordered list of [Port](./port) IDs with day offsets.
+- `effective_from` / `effective_to`: Control when the service can be booked.
+
+## Governance checkpoints
+
+1. **Network design** proposes new services or adjustments to port rotations.
+2. **Capacity planning** validates capacity ranges and approves effectivity dates.
+3. **Operations** tests EDI integration with carriers before activation.
+
+## Integration considerations
+
+- Publish service updates to downstream systems using the `service.updated` event payload.
+- Provide analytics extracts showing utilization vs. committed capacity for finance.
+- When a vessel changes, update the associated [Vessel](./vessel) record and republish schedules.
+
+## Related pages
+
+- [Carrier Master Data](./carrier)
+- [Vessel Master Data](./vessel)
+- [Port Master Data](./port)
+- [Master Data Overview](./)

@@ -1,0 +1,43 @@
+---
+title: "Trucker Master Data"
+description: "Document drayage and over-the-road partners supporting first and last mile moves."
+---
+
+Truckers provide inland pickup and delivery services. Maintaining a curated list of truckers ensures reliable
+appointments, visibility, and compliance with safety requirements.
+
+## Required fields
+
+| Field | Description |
+| --- | --- |
+| `name` | Legal or DBA name. |
+| `dot_number` | U.S. Department of Transportation identifier. Required for U.S.-based carriers. |
+| `mc_number` | Motor carrier number when applicable. |
+| `service_regions` | List of states or provinces supported. |
+| `equipment_types` | Supported equipment (e.g., chassis, dry van, reefer). |
+| `safety_rating` | Last FMCSA safety rating or equivalent. |
+
+## Operational preferences
+
+- Capture operating hours and weekend coverage to power appointment scheduling.
+- Specify contact methods for dispatch (EDI, API, email) to automate load tendering.
+- Flag bonded status for moves that require customs-controlled drayage.
+
+## Governance & compliance
+
+1. **Safety & Security** validates insurance certificates, safety ratings, and driver qualification files every 6 months.
+2. **Logistics operations** reviews on-time performance and updates preferred status each quarter.
+3. **Finance** ensures W-9 and banking details are on file before releasing payments.
+
+## Integration best practices
+
+- Synchronize trucker data with the yard management system to show pre-approved vendors at each facility.
+- Use geofencing around key [Port](./port) and warehouse locations to measure actual dwell times.
+- Integrate with [Shipper](./shipper) requirements to enforce appointment visibility.
+
+## Related pages
+
+- [Forwarder Master Data](./forwarder)
+- [Port Master Data](./port)
+- [Vessel Master Data](./vessel)
+- [Master Data Overview](./)

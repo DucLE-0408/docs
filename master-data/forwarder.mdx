@@ -1,0 +1,43 @@
+---
+title: "Forwarder Master Data"
+description: "Capture the intermediary partners coordinating multimodal logistics."
+---
+
+Forwarders (also known as NVOCCs or 3PLs) orchestrate shipments across carriers and modes. Clear, structured data allows
+operations teams to tender bookings, assign cost centers, and audit performance with minimal manual entry.
+
+## Required attributes
+
+| Field | Description |
+| --- | --- |
+| `name` | Legal entity name as it appears on agreements. |
+| `license_number` | Regulatory identifier such as NVOCC, FMC, or customs broker license. |
+| `primary_contact` | Named representative responsible for escalations. |
+| `contact_channels` | Email distribution list and phone routing for after-hours support. |
+| `service_modes` | Modes supported (ocean, air, road) to guide auto-assignment. |
+| `credit_status` | Values: `approved`, `probation`, `suspended`. Drives financial holds. |
+
+## Relationship mapping
+
+- Link forwarders to the [Shipper](./shipper) accounts they manage to provide controlled access.
+- Associate forwarders with preferred [Trucker](./trucker) partners for inland pickups.
+- Allow forwarders to nominate booked [Services](./service) while keeping carrier contracts private.
+
+## Governance workflow
+
+1. **Vendor Management** verifies licensing credentials annually.
+2. **Finance** reviews credit exposure and updates `credit_status` after each quarterly assessment.
+3. **Operations** confirms that the partner's SLA templates are uploaded before approving new trade lanes.
+
+## Implementation checklist
+
+- Load historical forwarders via CSV import to preserve vendor IDs from legacy systems.
+- Configure notification rules so performance scorecards are emailed monthly.
+- Enable API access for forwarders that submit bookings electronically.
+
+## Related pages
+
+- [Shipper Master Data](./shipper)
+- [Trucker Master Data](./trucker)
+- [Service Master Data](./service)
+- [Master Data Overview](./)

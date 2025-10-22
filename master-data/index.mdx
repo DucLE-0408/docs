@@ -1,0 +1,47 @@
+---
+title: "Master Data Overview"
+description: "Structure, stewardship, and navigation for the transportation master data domain."
+---
+
+Welcome to the source of truth for configuring the transportation network. The Master Data domain centralizes
+partners, assets, and locations so that execution systems can reference a consistent catalog.
+
+## What belongs in Master Data?
+
+Master Data captures the shared business concepts that every shipment, booking, and invoice refers to. We divide the domain
+into the following categories:
+
+| Category | Entities | Why it matters |
+| --- | --- | --- |
+| Partners | [Carriers](./carrier), [Forwarders](./forwarder), [Truckers](./trucker), [Shippers](./shipper) | Defines who we work with and how we settle services. |
+| Assets & Services | [Vessels](./vessel), [Services](./service) | Controls which physical assets and scheduled services can be planned. |
+| Locations | [Ports](./port) | Anchors origins and destinations to standardized codes and governance. |
+
+Each entity page documents required attributes, governance checkpoints, and relationships to other data sets.
+
+## Governance operating model
+
+1. **Stewards** own the accuracy of the data within their category and approve requested changes.
+2. **Data producers** submit changes via data import templates or in-app workflows that enforce validation.
+3. **Data consumers** subscribe to change notifications to keep planning and execution platforms synchronized.
+
+For more about the responsibilities in each area, review the "Governance" section in the related entity page.
+
+## Designing with downstream systems in mind
+
+- **Model relationships explicitly.** For example, a service references the carrier operating it and the vessel deployed on a given voyage.
+- **Capture identifiers from source systems.** Downstream integrations rely on carrier SCAC codes, vessel IMO numbers, and port UN/LOCODE values.
+- **Version with effectivity dates.** Maintaining start and end dates ensures we can plan future sailings without disrupting in-flight shipments.
+
+## Suggested implementation steps
+
+1. Prioritize [Carrier](./carrier) and [Port](./port) data so that routings can be validated end to end.
+2. Configure [Service](./service) definitions to expose schedules and sailing frequencies to planning teams.
+3. Onboard [Trucker](./trucker) partners alongside [Shipper](./shipper) records to unlock inland milestones.
+
+## Related resources
+
+- [Carrier Master Data](./carrier)
+- [Port Master Data](./port)
+- [Trucker Master Data](./trucker)
+- [Vessel Master Data](./vessel)
