@@ -1,0 +1,43 @@
+---
+title: "Carrier Master Data"
+description: "Define the ocean and air carriers that move contracted capacity."
+---
+
+Carriers represent the asset-owning organizations responsible for hauling freight. Accurate carrier records
+ensure capacity forecasts, rate management, and compliance reporting align with contractual commitments.
+
+## Data model
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `name` | Yes | Commercial name that appears on contracts and invoices. |
+| `scac` | Yes (ocean & truck) | Standard Carrier Alpha Code used for EDI and customs filings. |
+| `carrier_code` | Conditional | Airline two-character code for air carriers. |
+| `primary_mode` | Yes | Values: `ocean`, `air`, `rail`, `truck`. |
+| `headquarters_location_id` | No | Reference to the [Port](./port) or inland terminal representing the corporate HQ. |
+| `account_manager` | Yes | Internal owner responsible for maintaining the carrier relationship. |
+
+### Relationships
+
+- **Services:** Each [Service](./service) record references a carrier to inherit billing terms and performance metrics.
+- **Vessels:** Carrier-to-[Vessel](./vessel) relationships track which ships are operated vs. chartered.
+- **Truckers:** When carriers subcontract inland legs, link the trucker partner to the carrier for visibility.
+
+## Governance
+
+1. Carrier records are stewarded by the **Procurement** team.
+2. Changes to legal names or SCAC codes require a regulatory compliance review before publishing.
+3. Use effectivity dates to manage mergers or rebranding without breaking historical reporting.
+
+## Integration notes
+
+- Publish carrier master data to the transportation management system (TMS) daily via the carrier export feed.
+- Maintain a lookup table mapping external system IDs so EDI acknowledgements can be reconciled.
+- Trigger alerts when duplicate SCAC codes are detected across different carrier entries.
+
+## Related pages
+
+- [Service Master Data](./service)
+- [Vessel Master Data](./vessel)
+- [Trucker Master Data](./trucker)
+- [Master Data Overview](./)

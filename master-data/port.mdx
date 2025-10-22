@@ -1,0 +1,44 @@
+---
+title: "Port Master Data"
+description: "Standardize ports and inland terminals with global codes and governance."
+---
+
+Ports anchor routing, customs, and scheduling information. Each port record consolidates regulatory identifiers
+and operational attributes so that shipments are consistently classified.
+
+## Core attributes
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `name` | Yes | Official facility name used in customs filings. |
+| `unlocode` | Yes | Five-character UN/LOCODE value identifying the location. |
+| `country` | Yes | ISO 3166-1 alpha-2 code. |
+| `timezone` | Yes | Olson timezone string for accurate ETA calculations. |
+| `port_type` | Yes | `seaport`, `airport`, `rail_ramp`, or `inland_terminal`. |
+| `latitude` / `longitude` | Yes | Decimal degrees for geospatial planning. |
+| `customs_requirements` | No | Notes describing documentation or inspection needs. |
+
+## Hierarchy & relationships
+
+- Associate ports with the regional owner that appears in analytics dashboards.
+- Link origin and destination preferences to [Service](./service) offerings to power auto-scheduling.
+- Tie port drayage to preferred [Trucker](./trucker) partners for ground moves.
+
+## Data quality controls
+
+1. Validate UN/LOCODEs against the latest UNECE release before approving changes.
+2. Enforce timezone and country lookups via controlled vocabularies.
+3. Audit port usage quarterly to retire inactive locations.
+
+## Implementation guidance
+
+- When migrating legacy data, map ambiguous port names to unique UN/LOCODE values to prevent duplicates.
+- Use the API endpoint `POST /master-data/ports` for bulk onboarding; it accepts batches of up to 500 records.
+- Surface weather or disruption alerts by subscribing port records to external intelligence feeds.
+
+## Related pages
+
+- [Service Master Data](./service)
+- [Carrier Master Data](./carrier)
+- [Trucker Master Data](./trucker)
+- [Master Data Overview](./)
